@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies List</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .movie-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .movie-item img {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .movie-item .text-center {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .movie-item .buttons {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Movies</h1>
+        </div>
+        <ul>
+            <% movies.forEach(movie => { %>
+                <li class="movie-item">
+                    <% if (movie.image) { %>
+                        <img src="<%= movie.image %>" alt="<%= movie.title %>">
+                    <% } %>
+                    <div class="text-center">
+                        <h2><%= movie.title %></h2>
+                        <p>by <%= movie.director %></p>
+                        <p>(Released: <%= movie.releaseYear %>)</p>
+                    </div>
+                    <div class="buttons">
+                        <a href="/movies/edit/<%= movie._id %>" class="button">Edit</a>
+                        <form action="/movies/delete/<%= movie._id %>" method="POST" style="display:inline;">
+                            <button type="submit" class=" ">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            <% }) %>
+        </ul>
+        <a href="/movies/add">Add another movie</a> 
+        <div class="footer">
+            <a href="/">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>
